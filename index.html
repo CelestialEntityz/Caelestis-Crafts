@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Caelestis Crafts - Handcrafted and laser engraved products made with love">
+    <title>Caelestis Crafts | Handcrafted & Laser Engraved Products</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="images/mainlogo.png">
+ 
+    <!-- Modal styles (minimal, add to style.css if you prefer) -->
+    <style>
+    /* Product details modal */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); display: none; align-items: center; justify-content: center; z-index: 9999; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: #fff; width: 92%; max-width: 900px; border-radius: 8px; box-shadow: 0 8px 40px rgba(0,0,0,.3); display: flex; flex-direction: column; max-height: 90vh; overflow: hidden; }
+    .modal-header { display:flex; justify-content:space-between; align-items:center; padding:16px 20px; border-bottom:1px solid #eee; }
+    .modal-body { display:flex; gap:20px; padding:20px; flex-wrap:wrap; overflow-y: auto; flex: 1 1 auto; }
+    .modal-body .img-wrap { flex: 1 1 220px; max-width: 320px; }
+    .modal-body img { width:100%; height:auto; display:block; border-radius:6px; }
+    .modal-body .info { flex: 2 1 300px; }
+    .modal-footer { display:flex; justify-content:space-between; gap:12px; padding:16px 20px; border-top:1px solid #eee; flex-shrink: 0; }
+    .close-btn { background:transparent; border:none; font-size:20px; cursor:pointer; }
+    .modal .badge { background:#ffcf66; padding:6px 10px; border-radius:4px; display:inline-block; margin-bottom:8px; font-weight:600; }
+    .modal input[type="number"], .modal textarea { width:100%; padding:8px; border:1px solid #ccc; border-radius:4px; }
+    .modal .actions .btn { padding:10px 14px; border-radius:6px; cursor:pointer; }
+    .modal .actions .btn-primary { background:#2b6cb0; color:#fff; border:none; }
+    .modal .actions .btn-secondary { background:#eee; border:none; }
+ 
+    /* modal-extras: allow native scrollbar (do NOT hide it) */
+    .modal-extras { position: relative; margin-top:12px; color:#444; }
+    .modal-extras .scroll-area {
+      max-height: 220px;
+      overflow-y: auto;
+      padding-right: 8px;
+      line-height: 1.35;
+    }
+ 
+    /* ── MOBILE ONLY: vertical scrollbar so all content is reachable ── */
+    @media (max-width: 768px) {
+      .modal {
+        width: 95%;
+        max-height: 90vh;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        display: block;
+      }
+      .modal::-webkit-scrollbar          { width: 6px; }
+      .modal::-webkit-scrollbar-track    { background: #f0f0f0; }
+      .modal::-webkit-scrollbar-thumb    { background: #aaa; border-radius: 3px; }
+      .modal-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: #fff;
+        border-bottom: 1px solid #eee;
+      }
+      .modal-body { flex-direction: column; overflow-y: visible; }
+      .modal-body .img-wrap { max-width: 100%; }
+      .modal-extras .scroll-area { max-height: none; overflow-y: visible; }
+      #modalClose {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        min-width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #f0f0f0;
+        font-size: 18px;
+      }
+    }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="images/logo.png" alt="Caelestis Crafts Logo">
+            </div>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu"></button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#products" class="nav-link">Products</a></li>
+                <li><a href="#categories" class="nav-link">Categories</a></li>
+                <li><a href="#reviews" class="nav-link">Reviews</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+ 
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h2 class="hero-title">Handcrafted with Love</h2>
+            <p class="hero-subtitle">Discover personalized laser-engraved products and handmade crafts that tell your story.</p>
+            <a href="#products" class="btn btn-primary">Browse Now</a>
+        </div>
+    </section>
+ 
+    <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <h2 class="section-title">What We Offer:</h2>
+            <div class="categories-grid">
+                <div class="category-card" style="text-align: center;">
+                    <div class="category-icon" style="display: flex; justify-content: center; align-items: center;">
+                        <img src="images/hand.png" alt="Hand Icon" style="width: 60px; height: 60px; object-fit: contain;">
+                    </div>
+                    <h3>Handcrafted Items</h3>
+                    <p>Unique handmade crafts created with passion and attention to detail</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon" style="display: flex; justify-content: center; align-items: center;">
+                        <img src="images/engraver.png" alt="Engraver Icon" style="width: 60px; height: 60px; object-fit: contain;">
+                    </div>
+                    <h3>Laser Engraved</h3>
+                    <p>Personalized engravings on wood, metal, and more</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon" style="display: flex; justify-content: center; align-items: center;">
+                        <img src="images/giftbox.png" alt="Gift Icon" style="width: 60px; height: 60px; object-fit: contain;">
+                    </div>
+                    <h3>Custom Gifts</h3>
+                    <p>Perfect gifts for any occasion, customized just for you</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon" style="display: flex; justify-content: center; align-items: center;">
+                        <img src="images/house.png" alt="House Icon" style="width: 60px; height: 60px; object-fit: contain;">
+                    </div>
+                    <h3>Home Decor</h3>
+                    <p>Beautiful decorative pieces to enhance your living space</p>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Best Sellers Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <h2 class="section-title">Best Sellers</h2>
+            <div class="products-grid">
+                <div class="product-card" id="textKeychainCard" data-price-front="65" data-price-both="70" data-images="images/txtkeychain.png">
+                    <div class="product-image">
+                        <div class="product-badge">Best Seller</div>
+                        <img src="images/txtkeychain.png" alt="Text Engraved">
+                    </div>
+                    <div class="product-info">
+                        <h3>Text Keychain</h3>
+                        <p class="product-description">This is a personalized text engraved in wooden keychain</p>
+ 
+                        <div class="product-extra" aria-hidden="true">
+                            <strong>Inclusions:</strong>
+                            <ul>
+                                <li>custom engraving</li>
+                                <li>bamboo keychain</li>
+                                <li>plastic packaging</li>
+                            </ul>
+                            <strong>Dimensions:</strong>
+                            <div>3.5' x 3.5'</div>
+                        </div>
+ 
+                        <div class="keychain-side-selector">
+                            <label class="side-option">
+                                <input type="radio" name="textkeychainSide" value="front" checked>
+                                <span>Front Only</span>
+                            </label>
+                            <label class="side-option">
+                                <input type="radio" name="textkeychainSide" value="both">
+                                <span>Both Sides</span>
+                            </label>
+                        </div>
+ 
+                        <div class="product-footer">
+                            <span class="price" id="textKeychainPrice">₱65</span>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card" id="imageKeychainCard" data-price-front="85" data-price-both="100" data-images="images/image keychain.png,images/keychain/img1.png, images/keychain/fam1.jpg, images/keychain/img2.png,images/keychain/img3.png">
+                    <div class="product-image">
+                        <div class="product-badge">Best Seller</div>
+                        <img src="images/image keychain.png" alt="Wooden Coaster Set">
+                    </div>
+                    <div class="product-info">
+                        <h3>Image Keychain</h3>
+                        <p class="product-description">Personalized picture/image engraved in wooden keychain</p>
+ 
+                        <div class="product-extra" aria-hidden="true">
+                            <strong>Inclusions:</strong>
+                            <ul>
+                                <li>custom image engraving</li>
+                                <li>bamboo round/square board</li>
+                                <li>plastic packaging</li>
+                            </ul>
+                            <strong>Dimensions:</strong>
+                            <div>3.5' x 3.5'</div>
+                        </div>
+ 
+                        <div class="keychain-side-selector">
+                            <label class="side-option">
+                                <input type="radio" name="keychainSide" value="front" checked>
+                                <span>Front Only</span>
+                            </label>
+                            <label class="side-option">
+                                <input type="radio" name="keychainSide" value="both">
+                                <span>Both Sides</span>
+                            </label>
+                        </div>
+ 
+                        <div class="product-footer">
+                            <span class="price" id="imageKeychainPrice">₱85</span>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="product-card" data-images="images/large port.jpg">
+                    <div class="product-image">
+                        <div class="product-badge">Best Seller</div>
+                        <img src="images/large port.jpg" alt="Large Image">
+                    </div>
+                    <div class="product-info">
+                        <h3>Large Portrait</h3>
+                        <p class="product-description">A custom large engraved portrait with sharp, precise detailing on durable wooden material.
+                             Ideal for home décor, desk displays, or special gift occasions.</p>
+ 
+                        <div class="product-extra" aria-hidden="true">
+                            <strong>Inclusions:</strong>
+                            <ul>
+                                <li>custom image engraving</li>
+                                <li>bamboo round/square board</li>
+                                <li>plastic packaging</li>
+                            </ul>
+                            <strong>Dimensions:</strong>
+                            <div>11' x 8'</div>
+                        </div>
+ 
+                        <div class="product-footer">
+                            <span class="price">₱825</span>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-badge">Best Seller</div>
+                        <img src="images/mid port.jpg" alt="Ref Image">
+                    </div>
+                    <div class="product-info">
+                        <h3>Medium Portrait</h3>
+                        <p class="product-description">A custom medium engraved portrait with sharp, precise detailing on durable wooden material.
+                             Ideal for home décor, desk displays, or special gift occasions.</p>
+ 
+                        <div class="product-extra" aria-hidden="true">
+                            <strong>Inclusions:</strong>
+                            <ul>
+                                <li>custom image engraving</li>
+                                <li>bamboo round/square board</li>
+                                <li>plastic packaging</li>
+                            </ul>
+                            <strong>Dimensions:</strong>
+                            <div>10' x 8.5'</div>
+                        </div>
+ 
+                        <div class="product-footer">
+                            <span class="price">₱725</span>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="product-card" data-images="images/small port.jpg, images/small frame/charbel1.jpg, images/small frame/charbel2.jpg">
+                    <div class="product-image">
+                        <div class="product-badge">Best Seller</div>
+                        <img src="images/small port.jpg" alt="Ref Image">
+                    </div>
+                    <div class="product-info">
+                        <h3>Small Portrait</h3>
+                        <p class="product-description">A custom small engraved portrait with sharp, precise detailing on durable wooden material. 
+                            Ideal for home decoration, desk displays, or special gift occasions.</p>
+ 
+                        <div class="product-extra" aria-hidden="true">
+                            <strong>Inclusions:</strong>
+                            <ul>
+                                <li>custom image engraving</li>
+                                <li>mahogany wood engrave</li>
+                                <li>box with ribbon</li>
+                            </ul>
+                            <strong>Dimensions:</strong>
+                            <div>6' x 8'</div>
+                        </div>
+ 
+                        <div class="product-footer">
+                            <span class="price">625</span>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="product-card" data-images="images/service.png, images/service/services.png, images/service/pinkerton.jpg, images/service/belo.jpg">
+                    <div class="product-image">
+                        <div class="product-badge">Latest</div>
+                        <img src="images/service.png" alt="Service">
+                    </div>
+                    <div class="product-info">
+                        <h3>Engraving Service</h3>
+                        <p class="product-description">Quality engraving for any wooden item you want. Fully customizable layout.</p>
+                        
+                        <div class="product-extra" aria-hidden="true">
+                            <strong>Inclusions:</strong>
+                            <ul>
+                                <li>custom engraving any wooden item</li>
+                                <li>free layout</li>
+                            </ul>
+                            <strong>Dimensions:</strong>
+                            <div>Customizable</div>
+                        </div>
+                        
+                        <div class="product-footer">
+                            <span class="price">Price Varies</span>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-badge">Best Seller</div>
+                        <img src="images/reftext.jpg" alt="Ref Text">
+                    </div>
+                    <div class="product-info">
+                        <h3>Text Ref Magnet</h3>
+                        <p class="product-description">Beautifully engraved ref magnet with customized text</p>
+ 
+                        <div class="product-extra" aria-hidden="true">
+                            <strong>Inclusions:</strong>
+                            <ul>
+                                <li>custom text engraving</li>
+                                <li>bamboo round/square board</li>
+                                <li>plastic packaging</li>
+                            </ul>
+                            <strong>Dimensions:</strong>
+                            <div>7' x 7'</div>
+                        </div>
+ 
+                        <div class="product-footer">
+                            <span class="price">₱85</span>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-badge">Best Seller</div>
+                        <img src="images/imageref.png" alt="Ref Image">
+                    </div>
+                    <div class="product-info">
+                        <h3>Image Ref Magnet</h3>
+                        <p class="product-description">Personalized picture/image engraved in a wooden ref magnet</p>
+ 
+                        <div class="product-extra" aria-hidden="true">
+                            <strong>Inclusions:</strong>
+                            <ul>
+                                <li>custom image engraving</li>
+                                <li>bamboo round/square board</li>
+                                <li>plastic packaging</li>
+                            </ul>
+                            <strong>Dimensions:</strong>
+                            <div>7' x 7'</div>
+                        </div>
+ 
+                        <div class="product-footer">
+                            <span class="price">₱95</span>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="product-card" data-images="images/suklaysmall.png, images/small brush/brush1.png">
+                    <div class="product-image">
+                        <div class="product-badge">Popular</div>
+                        <img src="images/suklaysmall.png" alt="Small Comb">
+                    </div>
+                    <div class="product-info">
+                        <h3>Bamboo Bristle Comb Small</h3>
+                        <p class="product-description">A beautifully crafted wooden hair comb designed for everyday use and special gifting.</p>
+ 
+                        <div class="product-extra" aria-hidden="true">
+                            <strong>Inclusions:</strong>
+                            <ul>
+                                <li>custom text engraving</li>
+                                <li>bamboo hair brush</li>
+                                <li>free ribbon</li>
+                            </ul>
+                            <strong>Dimensions:</strong>
+                            <div>16' x 4'</div>
+                        </div>
+ 
+                        <div class="product-footer">
+                            <span class="price">₱95</span>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="product-card" data-images="images/largesuklay.png, images/big brush/suklay1.jpg">
+                    <div class="product-image">
+                        <div class="product-badge">Popular</div>
+                        <img src="images/largesuklay.png" alt="Large Comb">
+                    </div>
+                    <div class="product-info">
+                        <h3>Bamboo Bristle Comb Large</h3>
+                        <p class="product-description">A beautifully crafted wooden hair comb designed for everyday use and special gifting</p>
+                        
+                        <div class="product-extra" aria-hidden="true">
+                            <strong>Inclusions:</strong>
+                            <ul>
+                                <li>custom text engraving</li>
+                                <li>bamboo hair brush</li>
+                                <li>free ribbon</li>
+                            </ul>
+                            <strong>Dimensions:</strong>
+                            <div>25' x 8'</div>
+                        </div>
+ 
+                        <div class="product-footer">
+                            <span class="price">₱185</span>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-badge">Popular</div>
+                        <img src="images/pen.jpg" alt="Pen">
+                    </div>
+                    <div class="product-info">
+                        <h3>Bamboo Pen</h3>
+                        <p class="product-description">A stylish and eco-friendly writing instrument crafted from natural bamboo</p>
+                        
+                        <div class="product-extra" aria-hidden="true">
+                            <strong>Inclusions:</strong>
+                            <ul>
+                                <li>custom engraving</li>
+                                <li>bamboo pen</li>
+                                <li>plastic packaging</li>
+                            </ul>
+                            <strong>Dimensions:</strong>
+                            <div>13'</div>
+                        </div>
+                        
+                        <div class="product-footer">
+                            <span class="price">₱40</span>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-badge">Popular</div>
+                        <img src="images/penacrylic.jpg" alt="Pen">
+                    </div>
+                    <div class="product-info">
+                        <h3>Bamboo Pen /w Acrylic Case</h3>
+                        <p class="product-description">A stylish and eco-friendly writing instrument crafted from natural bamboo</p>
+                        
+                        <div class="product-extra" aria-hidden="true">
+                            <strong>Inclusions:</strong>
+                            <ul>
+                                <li>custom engraving</li>
+                                <li>bamboo pen</li>
+                                <li>Acrylic Case</li>
+                            </ul>
+                            <strong>Dimensions:</strong>
+                            <div>13'</div>
+                        </div>
+                        
+                        <div class="product-footer">
+                            <span class="price">₱60</span>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-badge">Popular</div>
+                        <img src="images/nbpen.jpg" alt="Notebook Pen">
+                    </div>
+                    <div class="product-info">
+                        <h3>Bamboo Notebook w/ Pen</h3>
+                        <p class="product-description">An ideal gift for anyone that can be customized for names, logo, qoutes, or image.</p>
+                        
+                        <div class="product-extra" aria-hidden="true">
+                            <strong>Inclusions:</strong>
+                            <ul>
+                                <li>custom engraving</li>
+                                <li>bamboo notebook</li>
+                                <li>bamboo pen</li>
+                            </ul>
+                            <strong>Dimensions:</strong>
+                            <div>18' x 15'</div>
+                        </div>
+ 
+                        <div class="product-footer">
+                            <span class="price">₱185</span>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-badge">Popular</div>
+                        <img src="images/bottle.png" alt="Bottle Opener">
+                    </div>
+                    <div class="product-info">
+                        <h3>Bamboo Bottle Opener</h3>
+                        <p class="product-description">A durable, eco-friendly bottle opener crafted with a smooth bamboo handle</p>
+                        
+                        <div class="product-extra" aria-hidden="true">
+                            <strong>Inclusions:</strong>
+                            <ul>
+                                <li>custom engraving</li>
+                                <li>bamboo bottle opener</li>
+                                <li>plastic packaging</li>
+                            </ul>
+                            <strong>Dimensions:</strong>
+                            <div>14' x 2'</div>
+                        </div>
+                        
+                        <div class="product-footer">
+                            <span class="price">₱90</span>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-badge">Popular</div>
+                        <img src="images/letter.jpg" alt="Vintage Letter">
+                    </div>
+                    <div class="product-info">
+                        <h3>Vintage Letter</h3>
+                        <p class="product-description">A simple yet meaningful way to bring history, romance, and personality back into writing</p>
+                        
+                        <div class="product-extra" aria-hidden="true">
+                            <strong>Inclusions:</strong>
+                            <ul>
+                                <li>aged paper</li>
+                                <li>type written paper (300 words maximum)</li>
+                                <li>envelope</li>
+                                <li>seal wax</li>
+                                <li>dried flowers</li>
+                                <li>twine</li>
+                                <li>satin ribbon</li>
+                                <li>box (16*10*3cm)</li>
+                            </ul>
+                            <strong>Additional:</strong>
+                            <div>Pages: ₱25</div>
+                            <div>Abaca: ₱10</div>
+                            <div>Dried Flower: ₱15</div>
+ 
+                            <strong>Envelope Colors:</strong>
+                            <div>Red</div>
+                            <div>Black</div>
+                            <div>White</div>
+ 
+                            <strong>Ribbon Colors:</strong>
+                            <div>Red</div>
+                            <div>Black</div>
+                            <div>Cream</div>
+                            <div>Green</div>
+                            <div>Violet</div>
+                            <div>Pink</div>
+                            <div>Blue</div>
+                        </div>
+ 
+                        <div class="product-footer">
+                            <span class="price">₱160</span>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-badge">Popular</div>
+                        <img src="images/smallbukey.png" alt="Satin Bouquet">
+                    </div>
+                    <div class="product-info">
+                        <h3>1-Stem Satin Bouquet</h3>
+                        <p class="product-description">Crafted with soft, luxurious satin petals, this bouquet brings timeless beauty to any occasion</p>
+                        
+                        <div class="product-extra" aria-hidden="true">
+                            <strong>Inclusions:</strong>
+                            <ul>
+                                <li>1 hand-made satin flowers</li>
+                                <li>quality wrapping design</li>
+                                <li>aesthetic plastic bag</li>
+                            </ul>
+                            <strong>Colors:</strong>
+                            <div>Pink</div>
+                            <div>Blue</div>
+                            <div>Green</div>
+                            <div>Red</div>
+                            <div>Black</div>
+                            <div>Cream</div>
+                        </div>
+ 
+                        <div class="product-footer">
+                            <span class="price">₱100</span>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-badge">Popular</div>
+                        <img src="images/3bukay.png" alt="Satin Bouquet">
+                    </div>
+                    <div class="product-info">
+                        <h3>3-Stem Satin Bouquet</h3>
+                        <p class="product-description">Crafted with soft, luxurious satin petals, this bouquet brings timeless beauty to any occasion</p>
+                        
+                        <div class="product-extra" aria-hidden="true">
+                            <strong>Inclusions:</strong>
+                            <ul>
+                                <li>3 hand-made satin flowers</li>
+                                <li>quality wrapping design</li>
+                                <li>aesthetic plastic bag</li>
+                            </ul>
+                            <strong>Colors:</strong>
+                            <div>Pink</div>
+                            <div>Blue</div>
+                            <div>Green</div>
+                            <div>Red</div>
+                            <div>Black</div>
+                            <div>Cream</div>
+                        </div>
+ 
+                        <div class="product-footer">
+                            <span class="price">₱195</span>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-badge">Popular</div>
+                        <img src="images/6bukay.png" alt="Satin Bouquet">
+                    </div>
+                    <div class="product-info">
+                        <h3>6-Stem Satin Bouquet</h3>
+                        <p class="product-description">Crafted with soft, luxurious satin petals, this bouquet brings timeless beauty to any occasion</p>
+                        
+                        <div class="product-extra" aria-hidden="true">
+                            <strong>Inclusions:</strong>
+                            <ul>
+                                <li>6 hand-made satin flowers</li>
+                                <li>quality wrapping design</li>
+                                <li>aesthetic plastic bag</li>
+                            </ul>
+                            <strong>Colors:</strong>
+                            <div>Pink</div>
+                            <div>Blue</div>
+                            <div>Green</div>
+                            <div>Red</div>
+                            <div>Black</div>
+                            <div>Cream</div>
+                        </div>
+ 
+                        <div class="product-footer">
+                            <span class="price">₱390</span>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+ 
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="product-badge">Popular</div>
+                        <img src="images/largebukay.jpg" alt="Ella Blues">
+                    </div>
+                    <div class="product-info">
+                        <h3>20-Stem Chocolate Bouquet</h3>
+                        <p class="product-description">A gift that is as beautiful as it is delicious</p>
+ 
+                        <div class="product-extra" aria-hidden="true">
+                            <strong>Inclusions:</strong>
+                            <ul>
+                                <li>chocolates</li>
+                                <li>20 hand-made satin flowers</li>
+                                <li>quality wrapping design</li>
+                            </ul>
+                            <strong>Colors:</strong>
+                            <div>Pink</div>
+                            <div>Blue</div>
+                            <div>Green</div>
+                            <div>Red</div>
+                            <div>Black</div>
+                            <div>Cream</div>
+                        </div>
+ 
+                        <div class="product-footer">
+                            <span class="price">₱1,799</span>
+                            <button class="btn btn-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Reviews Section -->
+    <section class="reviews" id="reviews">
+        <div class="container">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Wow, ang ganda po. Detailed at quality talaga yung engrave! Much recomended engraver."</p>
+                    <div class="reviewer">
+                        <strong>Anonymous</strong>
+                        <span>Verified Buyer</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Sobrang nagustuhan ng girlfriend ko. First flower niya rin. Anyways, sa uulitin po. Thank youuuu! 💗"</p>
+                    <div class="reviewer">
+                        <strong>Axel J.</strong>
+                        <span>Verified Buyer</span>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Nagustuhan niya, sobraaa. Kinikilig akooo huhu. Ang ganda raw po ng packaging niyo. I'll recommend this na rin sa mga kakilala ko. Super ganda. 💕💗"</p>
+                    <div class="reviewer">
+                        <strong>Axel J.</strong>
+                        <span>Verified Buyer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">About Caelestis Crafts</h2>
+                    <p>Welcome to Caelestis Crafts, where creativity meets craftsmanship. We specialize in creating unique handcrafted items and precision laser-engraved products that add a personal touch to your life.</p>
+                    <p>Every piece we create is made with love, attention to detail, and a commitment to quality. From custom gifts to home decor, we believe in the power of handmade items to bring joy and meaning to everyday moments.</p>
+                    <p>Our passion is transforming ordinary materials into extraordinary keepsakes that you'll treasure for years to come. We work closely with each customer to bring their vision to life, whether it's a personalized gift or a unique addition to their home.</p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <h3>100+</h3>
+                            <p>Happy Customers</p>
+                        </div>
+                        <div class="stat">
+                            <h3>11,000+</h3>
+                            <p>Products Created</p>
+                        </div>
+                        <div class="stat">
+                            <h3>5★</h3>
+                            <p>Average Rating</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="images/about.png" alt="Crafting Process">
+                </div>
+            </div>
+ 
+            <!-- About Owner (added below about-content) -->
+            <div class="about-owner" id="aboutOwner">
+                <h2 class="section-title">Meet the Owners!</h2>
+                <div class="owner-card">
+                    <div class="owner-photo" aria-hidden="false">
+                        <!-- replace images/owner.jpg with the owner's photo -->
+                        <img src="images/owners1.jpg" alt="Owner Photo">
+                    </div>
+                    <div class="owner-bio">
+                        <h3>Zam & Angel</h3>
+                        <p><strong>Founders/Owners</strong></p>
+                        <p>Hello, our dear customer! We are a young couple who knows how important gifts and souvenirs are to every people. That is the reason why Caelestis Crafts was established.
+                            We aim to provide quality and affordable handcrafts that your love ones would surely fall inlove with.
+                        </p>
+                    </div>
+                </div>
+            </div>
+ 
+        </div>
+    </section>
+ 
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="info-item">
+                        <strong>Email:</strong>
+                        <p>caelestis7crafts@gmail.com</p>
+                    </div>
+                    <div class="info-item">
+                        <strong>Phone:</strong>
+                        <p>(+63)924 560 8295</p>
+                        <p>(+63)969 257 3933</p>
+                    </div>
+                    <div class="info-item">
+                        <strong>Follow Us:</strong>
+                        <div class="social-links">
+                            <a href="https://web.facebook.com/ZZparalleluniverse" aria-label="Facebook">Facebook</a>
+                            <a href="https://www.instagram.com/caelestis_crafts_/" aria-label="Instagram">Instagram</a>
+                            <a href="https://www.tiktok.com/@caelestis_crafts" aria-label="Tiktok">Tiktok</a>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Caelestis Crafts. All rights reserved.</p>
+            <p>Handcrafted with love</p>
+        </div>
+    </footer>
+ 
+    <!-- Zoom Lightbox -->
+    <div id="zoomLightbox" class="zoom-lightbox" aria-hidden="true" role="dialog" aria-label="Image zoom view">
+        <button class="zoom-close" id="zoomClose" aria-label="Close zoom">&#10005;</button>
+        <button class="zoom-nav zoom-nav-prev" id="zoomPrev" aria-label="Previous image">&#8249;</button>
+        <div class="zoom-container" id="zoomContainer">
+            <img id="zoomImage" src="" alt="Zoomed product image" draggable="false">
+        </div>
+        <button class="zoom-nav zoom-nav-next" id="zoomNext" aria-label="Next image">&#8250;</button>
+        <div class="zoom-controls">
+            <button class="zoom-btn" id="zoomIn" aria-label="Zoom in">&#43;</button>
+            <span class="zoom-level-label" id="zoomLevelLabel">100%</span>
+            <button class="zoom-btn" id="zoomOut" aria-label="Zoom out">&#8722;</button>
+            <button class="zoom-btn zoom-reset" id="zoomReset" aria-label="Reset zoom">Reset</button>
+        </div>
+        <div class="zoom-counter" id="zoomCounter"></div>
+    </div>
+ 
+    <!-- Modal (product details) -->
+    <div id="productModalOverlay" class="modal-overlay" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-header">
+                <div>
+                    <span id="modalBadge" class="badge" style="display:none;"></span>
+                    <h3 id="modalTitle" style="margin:0"></h3>
+                    <div id="modalPrice" style="color:#8B6F47; font-weight:700; margin-top:6px;"></div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="img-wrap">
+                    <!-- Carousel -->
+                    <div class="carousel" id="modalCarousel">
+                        <button class="carousel-arrow carousel-prev" id="carouselPrev" aria-label="Previous image">&#8249;</button>
+                        <div class="carousel-track-wrap">
+                            <div class="carousel-track" id="carouselTrack"></div>
+                        </div>
+                        <button class="carousel-arrow carousel-next" id="carouselNext" aria-label="Next image">&#8250;</button>
+                        <div class="carousel-dots" id="carouselDots"></div>
+                        <div class="carousel-zoom-hint">Click image to zoom</div>
+                    </div>
+                    <!-- Legacy single image (hidden, kept for JS compat) -->
+                    <img id="modalImage" src="" alt="Product image" style="display:none">
+                </div>
+                <div class="info">
+                    <p id="modalDescription"></p>
+ 
+                    <!-- Read-only product info (no order form)
+                         scroll-area holds the content; native scrollbar will appear when needed -->
+                    <div id="modalExtras" class="modal-extras" aria-hidden="false">
+                        <div id="modalExtrasContent" class="scroll-area" role="region" aria-label="Product additional information"></div>
+                        <!-- removed custom scroll buttons -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="margin-left:auto">
+                    <button type="button" id="modalCloseBtn" class="btn btn-secondary">Close</b>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
