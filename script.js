@@ -254,6 +254,37 @@ document.querySelectorAll('a[href="#"]').forEach(link => {
     }
 })();
 
+// ── Swiss Knife side selector ──
+(function () {
+    const PRICES = { front: 95, both: 110 };
+
+    function initKeychainSelector() {
+        const card = document.getElementById('swissKnifeCard');
+        if (!card) return;
+
+        const radios = card.querySelectorAll('input[name="swissSide"]');
+        const priceEl = document.getElementById('swissKnifePrice');
+
+        radios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                const price = PRICES[radio.value] ?? 95;
+                priceEl.textContent = '₱' + price;
+                // keep card dataset in sync so modal reads correct price
+                card.dataset.swissPrice = price;
+            });
+        });
+
+        // set default dataset value
+        card.dataset.swissPrice = PRICES.front;
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initKeychainSelector);
+    } else {
+        initKeychainSelector();
+    }
+})();
+
 // ── Tex Image Keychain side selector ──
 (function () {
     const PRICES = { front: 65, both: 70 };
@@ -613,7 +644,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (modalExtrasContent) modalExtrasContent.innerHTML = extrasHtml || '';
 
       // ── Keychain side selector ──
-      const isKeychain = card.id === 'imageKeychainCard' || card.id === 'textKeychainCard';
+      const isKeychain = card.id === 'imageKeychainCard' || card.id === 'textKeychainCard' | card.id === 'swissKnifeCard';
       const existingSelector = document.getElementById('modalSideSelector');
       if (existingSelector) existingSelector.remove();
 
