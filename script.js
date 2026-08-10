@@ -66,7 +66,7 @@ window.addEventListener('scroll', () => {
 
 // EmailJS Configuration
 // IMPORTANT: Replace these with your actual EmailJS credentials
-const EMAILJS_PUBLIC_KEY = 'aO8b1wDdCvZ0Dpm6L';  // Get from EmailJS Dashboard
+const EMAILJS_PUBLIC_KEY = 'FX61FA5jxKet3w1Qb';  // Get from EmailJS Dashboard
 const EMAILJS_SERVICE_ID = 'service_4wql9yf';   // Your Gmail service ID
 const EMAILJS_TEMPLATE_ID = 'template_bxdn9cf'; // Your template ID
 
