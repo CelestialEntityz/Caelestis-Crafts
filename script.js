@@ -285,6 +285,37 @@ document.querySelectorAll('a[href="#"]').forEach(link => {
     }
 })();
 
+// ── Mirror side selector ──
+(function () {
+    const PRICES = { noHandle: 50, withHandle: 60 };
+
+    function initMirrorSelector() {
+        const card = document.getElementById('mirrorCard');
+        if (!card) return;
+
+        const radios = card.querySelectorAll('input[name="mirrorSide"]');
+        const priceEl = document.getElementById('mirrorPrice');
+
+        radios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                const price = PRICES[radio.value] ?? 50;
+                priceEl.textContent = '₱' + price;
+                // keep card dataset in sync so modal reads correct price
+                card.dataset.mirrorPrice = price;
+            });
+        });
+
+        // set default dataset value
+        card.dataset.mirrorPrice = PRICES.noHandle;
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMirrorSelector);
+    } else {
+        initMirrorSelector();
+    }
+})();
+
 // ── Tex Image Keychain side selector ──
 (function () {
     const PRICES = { front: 65, both: 70 };
