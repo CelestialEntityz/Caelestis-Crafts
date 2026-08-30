@@ -301,12 +301,12 @@ document.querySelectorAll('a[href="#"]').forEach(link => {
                 const price = PRICES[radio.value] ?? 50;
                 priceEl.textContent = '₱' + price;
                 // keep card dataset in sync so modal reads correct price
-                card.dataset.mirrorPrice = price;
+                card.dataset.mirrorPrices = price;
             });
         });
 
         // set default dataset value
-        card.dataset.mirrorPrice = PRICES.noHandle;
+        card.dataset.mirrorPrices = PRICES.noHandle;
     }
 
     if (document.readyState === 'loading') {
@@ -676,6 +676,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // ── Keychain side selector ──
       const isKeychain = card.id === 'imageKeychainCard' || card.id === 'textKeychainCard' | card.id === 'swissKnifeCard';
+      const isMirror   = card.id === 'mirrorCard';
       const existingSelector = document.getElementById('modalSideSelector');
       if (existingSelector) existingSelector.remove();
 
@@ -719,7 +720,49 @@ document.addEventListener('DOMContentLoaded', () => {
         if (infoDiv && extrasDiv) infoDiv.insertBefore(selectorDiv, extrasDiv);
       }
 
+      if (isMirror) {
+        const priceNoHandle   = parseInt(card.dataset.priceNohandle, 10)   || 50;
+        const priceWithHandle = parseInt(card.dataset.priceWithhandle, 10) || 60;
+        const currentRadio = card.querySelector('input[name="mirrorSide"]:checked');
+        const currentSide  = currentRadio ? currentRadio.value : 'noHandle';
+        const currentPrice = currentSide === 'withHandle' ? priceWithHandle : priceNoHandle;
+
+        modalPrice.textContent = '₱' + currentPrice;
+
+        const selectorDiv = document.createElement('div');
+        selectorDiv.id        = 'modalSideSelector';
+        selectorDiv.className = 'modal-side-selector';
+        selectorDiv.innerHTML = `
+          <button type="button" class="modal-side-btn${currentSide === 'noHandle'   ? ' active' : ''}" data-side="noHandle">No Handle</button>
+          <button type="button" class="modal-side-btn${currentSide === 'withHandle' ? ' active' : ''}" data-side="withHandle">With Handle</button>
+        `;
+
+        selectorDiv.querySelectorAll('.modal-side-btn').forEach(b => {
+          b.addEventListener('click', () => {
+            const side  = b.dataset.side;
+            const price = side === 'withHandle' ? priceWithHandle : priceNoHandle;
+            modalPrice.textContent = '₱' + price;
+
+            const matchingRadio = card.querySelector(`input[name="mirrorSide"][value="${side}"]`);
+            if (matchingRadio) matchingRadio.checked = true;
+
+            const cardPriceEl = document.getElementById('mirrorPrice');
+            if (cardPriceEl) cardPriceEl.textContent = '₱' + price;
+            card.dataset.mirrorPrices = price;
+
+            selectorDiv.querySelectorAll('.modal-side-btn').forEach(x => x.classList.remove('active'));
+            b.classList.add('active');
+          });
+        });
+
+        const infoDiv2   = document.querySelector('.modal-body .info');
+        const extrasDiv2 = document.getElementById('modalExtras');
+        if (infoDiv2 && extrasDiv2) infoDiv2.insertBefore(selectorDiv, extrasDiv2);
+      }
+
       openModal();
     });
+
+    
   });
 });
