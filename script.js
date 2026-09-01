@@ -225,7 +225,7 @@ document.querySelectorAll('a[href="#"]').forEach(link => {
 
 // ── Image Keychain side selector ──
 (function () {
-    const PRICES = { front: 85, both: 100 };
+    const PRICES = { front: 60, both: 70 };
 
     function initKeychainSelector() {
         const card = document.getElementById('imageKeychainCard');
@@ -236,7 +236,7 @@ document.querySelectorAll('a[href="#"]').forEach(link => {
 
         radios.forEach(radio => {
             radio.addEventListener('change', () => {
-                const price = PRICES[radio.value] ?? 85;
+                const price = PRICES[radio.value] ?? 60;
                 priceEl.textContent = '₱' + price;
                 // keep card dataset in sync so modal reads correct price
                 card.dataset.keychainPrice = price;
@@ -256,7 +256,7 @@ document.querySelectorAll('a[href="#"]').forEach(link => {
 
 // ── Swiss Knife side selector ──
 (function () {
-    const PRICES = { front: 95, both: 110 };
+    const PRICES = { front: 100, both: 110 };
 
     function initKeychainSelector() {
         const card = document.getElementById('swissKnifeCard');
@@ -267,7 +267,7 @@ document.querySelectorAll('a[href="#"]').forEach(link => {
 
         radios.forEach(radio => {
             radio.addEventListener('change', () => {
-                const price = PRICES[radio.value] ?? 95;
+                const price = PRICES[radio.value] ?? 100;
                 priceEl.textContent = '₱' + price;
                 // keep card dataset in sync so modal reads correct price
                 card.dataset.swissPrice = price;
@@ -287,7 +287,7 @@ document.querySelectorAll('a[href="#"]').forEach(link => {
 
 // ── Mirror side selector ──
 (function () {
-    const PRICES = { noHandle: 50, withHandle: 60 };
+    const PRICES = { noHandle: 65, withHandle: 60 };
 
     function initMirrorSelector() {
         const card = document.getElementById('mirrorCard');
@@ -298,7 +298,7 @@ document.querySelectorAll('a[href="#"]').forEach(link => {
 
         radios.forEach(radio => {
             radio.addEventListener('change', () => {
-                const price = PRICES[radio.value] ?? 50;
+                const price = PRICES[radio.value] ?? 65;
                 priceEl.textContent = '₱' + price;
                 // keep card dataset in sync so modal reads correct price
                 card.dataset.mirrorPrices = price;
@@ -318,7 +318,7 @@ document.querySelectorAll('a[href="#"]').forEach(link => {
 
 // ── Tex Image Keychain side selector ──
 (function () {
-    const PRICES = { front: 65, both: 70 };
+    const PRICES = { front: 45, both: 50 };
 
     function initKeychainSelector() {
         const card = document.getElementById('textKeychainCard');
@@ -329,7 +329,7 @@ document.querySelectorAll('a[href="#"]').forEach(link => {
 
         radios.forEach(radio => {
             radio.addEventListener('change', () => {
-                const price = PRICES[radio.value] ?? 65;
+                const price = PRICES[radio.value] ?? 45;
                 priceEl.textContent = '₱' + price;
                 // keep card dataset in sync so modal reads correct price
                 card.dataset.textkeychainPrice = price;
