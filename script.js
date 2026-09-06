@@ -347,6 +347,32 @@ document.querySelectorAll('a[href="#"]').forEach(link => {
     }
 })();
 
+// ── Product Search ──
+(function () {
+    function initProductSearch() {
+        const searchInput = document.getElementById('productSearchInput');
+        if (!searchInput) return;
+
+        const productCards = document.querySelectorAll('.products-grid .product-card');
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.trim().toLowerCase();
+
+            productCards.forEach(card => {
+                const titleEl = card.querySelector('h3');
+                const name = titleEl ? titleEl.textContent.toLowerCase() : '';
+                card.style.display = name.includes(query) ? '' : 'none';
+            });
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initProductSearch);
+    } else {
+        initProductSearch();
+    }
+})();
+
 console.log('Caelestis Crafts website loaded successfully!');
 
 document.addEventListener('DOMContentLoaded', () => {
