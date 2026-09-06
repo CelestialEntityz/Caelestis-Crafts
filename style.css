@@ -988,15 +988,6 @@ body {
     .modal-body .img-wrap {
         max-width: 100%;
     }
-
-    .modal-footer {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .modal-footer .btn {
-        width: 100%;
-    }
 }
 
 /* Mobile devices (480px and below) */
@@ -1182,8 +1173,7 @@ body {
         border-radius: 6px;
     }
 
-    .modal-header,
-    .modal-footer {
+    .modal-header {
         padding: 12px 15px;
     }
 
